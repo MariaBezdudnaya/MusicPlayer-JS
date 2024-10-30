@@ -15,35 +15,51 @@ function updateCurrentSong(track) { // Функция для обновлени�
   song.textContent = track.title;
 }
 
-function addTrackToPlaylist(track) { // Обработчик клика для треков в плейлисте
+function addToPlaylist( item) { // Обработчик добавления треков в плейлист
   const li = document.createElement('li');
   li.classList.add('playlist-item');
-  li.textContent = "• " + `${track.title} - ${track.artist}`;
+ 
+  // Проверяем, является ли item объектом трека или файлом
+  if (item.title && item.artist) {
+    li.textContent = "• " + `${item.artist} - ${item.title}`; // Для объекта трека
+  } else if (item.name) {
+    li.textContent = "• " + item.name; // Для объекта файла
+  } else {
+    console.error('Invalid item type.'); // Обработка ошибки, если item не подходит
+    return;
+  }
+ 
   playlistContainer.appendChild(li); // Добавляем элемент списка в плейлист
-
+ 
   const hr = document.createElement('div');
   hr.classList.add('hr-playlist');
   playlistContainer.appendChild(hr);
-
+ 
   const playlistButtons = document.createElement('div'); // контейнер для кнопок воспроизведения и остановки трека
   playlistButtons.classList.add('playlist-buttons');
   li.appendChild(playlistButtons); // Добавляем кнопки в элемент списка
   
-
+ 
   const playButton = document.createElement('button'); // Добавляем обработчик события для воспроизведения трека
   playButton.classList.add('playlist-button');
   playButton.textContent = 'Play';
   playButton.addEventListener('click', () => {
-    updateCurrentSong(track);
-    player.play();
+    if (item.title && item.artist) {
+      updateCurrentSong(item); // Для объекта трека
+      player.play();
+    } else if (item.name) {
+      loadToPlayer(item); // Для объекта файла
+      playTrack();
+    }
   });
   playlistButtons.appendChild(playButton); // Добавляем кнопку в элемент списка
-
+ 
   const deleteButton = document.createElement('button'); // Добавляем обработчик события для удаления трека
   deleteButton.classList.add('playlist-button');
   deleteButton.textContent = 'Delete';
   deleteButton.addEventListener('click', () => {
-    playlistContainer.removeChild(li);
+   playlistContainer.removeChild(li);
+   playlistContainer.removeChild(hr);
   });
   playlistButtons.appendChild(deleteButton); // Добавляем кнопку в элемент списка
 }
@@ -60,7 +76,7 @@ searchButton.addEventListener('click', () => { // Обработчик клик�
     const foundTracks = musicData.filter(track => track.artist.toLowerCase().includes(searchTerm) || 
     track.title.includes(searchTerm));; // Присваиваем полученные данные переменной music
     foundTracks.forEach(track => {
-      addTrackToPlaylist(track); // Добавляем трек в плейлист
+      addToPlaylist(track); // Добавляем трек в плейлист
     });
   })
   .catch(error => {
@@ -92,7 +108,7 @@ searchButton.addEventListener('click', () => { // Обработчик клик�
 });
 
 
-function chooseFile() { // Функция выбора файла, не перетаскивая из dropzone
+function chooseFile() { // Функция выбора файла, не перетаскивая в dropzone
   const input = document.createElement('input');
   input.type = 'file';
 
@@ -122,8 +138,8 @@ function initDropzone() { // Функция инициализации dropzone 
 }
 
 
-function setSongInfo(file) { // Функция получения данных из выбранного файла
-  const mp3Tags = new MP3Tag(file); // Инициализируем библиотеку для парсинга мета-тегов из аудиофайлов
+function setSongInfo(fileContent) { // Функция получения данных из выбранного файла
+  const mp3Tags = new MP3Tag(fileContent); // Инициализируем библиотеку для парсинга мета-тегов из аудиофайлов
   mp3Tags.read();
 
   const { v1: {title, artist}, v2: {APIC} } = mp3Tags.tags; // Деструктуризация объекта, чтобы получить нужные значения (название + автор, обложка)
@@ -137,41 +153,7 @@ function setSongInfo(file) { // Функция получения данных �
 }
 
 
-function addToPlaylist(file) { // Функция добавления трека в плейлист
-  const li = document.createElement('li'); // Создаем новый элемент списка для трека
-  li.classList.add('playlist-item');
-  li.textContent = "• " + file.name; // Устанавливаем имя файла в качестве содержимого элемента списка
-  playlistContainer.appendChild(li); // Добавляем элемент списка в плейлист
-
-  const hr = document.createElement('div');
-  hr.classList.add('hr-playlist');
-  playlistContainer.appendChild(hr);
-
-  const playlistButtons = document.createElement('div'); // контейнер для кнопок воспроизведения и остановки трека
-  playlistButtons.classList.add('playlist-buttons');
-  li.appendChild(playlistButtons); // Добавляем кнопки в элемент списка
-
-  const playButton = document.createElement('button'); 
-  playButton.classList.add('playlist-button');
-  playButton.textContent = 'Play';
-  playButton.addEventListener('click', () => { // Добавляем обработчик события для воспроизведения трека
-    loadToPlayer(file);
-    playTrack(file);
-  });
-  playlistButtons.appendChild(playButton); // Добавляем кнопку в элемент списка
-
-  const deleteButton = document.createElement('button'); // Добавляем обработчик события для удаления трека
-  deleteButton.classList.add('playlist-button');
-  deleteButton.textContent = 'Delete';
-  deleteButton.addEventListener('click', () => {
-    playlistContainer.removeChild(li);
-  });
-  playlistButtons.appendChild(deleteButton); // Добавляем кнопку в элемент списка
-}
-
-function playTrack(file) { // Функция воспроизведения трека
-  player.src = URL.createObjectURL(file); // Загружаем ссылку на файл в плеер, делаем из массива байт URL и передаем в src
-  player.load(); // Начинаем процессить этот файл и грузить контент
+function playTrack() { // Функция воспроизведения трека
   player.play();
 }
 

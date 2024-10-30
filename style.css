@@ -307,7 +307,17 @@ li {
 
 @media screen and (max-width: 500px) {
   .wrapper {
-    padding-left: 35px;
+    width: 80vw; 
+    padding-left: 10px;
+  }
+  .playlist-item {
+    font-size: 0.4em;
+  }
+  .playerContainer {
+    width: 100%;
+  }
+  #player {
+    width: 80vw;
   }
   .player-card {
     gap: 10px;
@@ -323,5 +333,8 @@ li {
     height: 80px;
     border: none;
     border-radius: 8px;
+  }
+  .Bar__Container-sc-1p63gsh-0 {
+    width: 100%;
   }
 }

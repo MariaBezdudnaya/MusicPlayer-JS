@@ -1,51 +1,51 @@
 [
   { 
-   "file": "music/Sin_-_Hard_Ebm.mp3", 
+   "file": "music/Sin - Hard Ebm.mp3", 
    "artist": "Sin", 
    "title": "Hard Ebm", 
-   "coverSrc": "/img/Sin.png" 
+   "coverSrc": "img/Sin.png" 
   },
   { 
-   "file": "music/Dark_Techno_EBM_-_Industrial_Type_Beat.mp3", 
+   "file": "music/Dark Techno EBM - Industrial Type Beat.mp3", 
    "artist": "Dark Techno EBM", 
    "title": "Industrial Type Beat", 
-   "coverSrc": "/img/No_cover.png" 
+   "coverSrc": "img/No_cover.png" 
   },
   { 
-   "file": "music/Drum_and_Bass_-_Atmospheric_Drum_and_Bass.mp3", 
+   "file": "music/Drum and Bass - Atmospheric Drum and Bass.mp3", 
    "artist": "Drum and Bass", 
    "title": "Atmospheric Drum and Bass", 
-   "coverSrc": "/img/Atmospheric_Drum_and_Bass.png" 
+   "coverSrc": "img/Atmospheric_Drum_and_Bass.png" 
   },
   { 
-   "file": "music/Drum_and_Bass_-_Deep_Drum_and_Bass.mp3", 
+   "file": "music/Drum and Bass - Deep Drum and Bass.mp3", 
    "artist": "Drum and Bass", 
    "title": "Deep Drum and Bass", 
-   "coverSrc": "/img/Atmospheric_Drum_and_Bass.png" 
+   "coverSrc": "img/Atmospheric_Drum_and_Bass.png" 
   },
   { 
-   "file": "music/Drum_and_Bass_-_Jump_up_Drum_and_Bass.mp3", 
+   "file": "music/Drum and Bass - Jump up Drum and Bass.mp3", 
    "artist": "Drum and Bass", 
    "title": "Jump up Drum and Bass", 
-   "coverSrc": "/img/Jump_up_Drum_and_Bass.png" 
+   "coverSrc": "img/Jump_up_Drum_and_Bass.png" 
   },
   { 
-   "file": "music/TWAN_-_Black_Widow_Industrial_Techno.mp3", 
+   "file": "music/TWAN - Black Widow Industrial Techno.mp3", 
    "artist": "TWAN", 
    "title": "Black Widow Industrial Techno", 
-   "coverSrc": "/img/No_cover.png" 
+   "coverSrc": "img/No_cover.png" 
   },
   { 
-   "file": "music/lfilipe_Techno_Art_-_Whispers_in_the_Dark", 
+   "file": "music/lfilipe Techno Art - Whispers in the Dark.mp3", 
    "artist": "lfilipe Techno Art", 
    "title": "Whispers in the Dark", 
-   "coverSrc": "/img/lfilipe_Techno.png" 
+   "coverSrc": "img/lfilipe_Techno.png" 
   },
   { 
-   "file": "music/Nyctonian_-_Influenceur_Nyctonian_Industrial_Techno_Remix.mp3", 
+   "file": "music/Nyctonian - Influenceur Nyctonian Industrial.mp3", 
    "artist": "Nyctonian", 
-   "title": "Influenceur Nyctonian Industrial Techno Remix", 
-   "coverSrc": "/img/No_cover.png"
+   "title": "Influenceur Nyctonian Industrial Techno", 
+   "coverSrc": "img/No_cover.png"
   }
  ]
  
