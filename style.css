@@ -334,6 +334,9 @@ li {
     border: none;
     border-radius: 8px;
   }
+  #video {
+    font-size: 1em;
+  }
   .Bar__Container-sc-1p63gsh-0 {
     width: 100%;
   }
