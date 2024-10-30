@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon1.png">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main_api.js" defer></script>
+  <script src="main_array.js" defer></script>
+  <!-- Библиотека для парсинга мета-тегов из аудиофайлов: -->
+  <script src="https://cdn.jsdelivr.net/npm/mp3tag.js@latest/dist/mp3tag.min.js"></script>
+  <script src="https://static.elfsight.com/platform/platform.js" async></script>
+  <script src="https://static.elfsight.com/platform/platform.js" async></script>
+</head>
+
+<body>
+  <div class="elfsight-app-acf59968-53aa-4c92-add8-5a4eab853240" data-elfsight-app-lazy></div>
+  
+  <header>
+    <h1>CyberZone</h1>
+    <div class="hr"></div>
+  </header>
+
+  <div class="wrapper">
+    <p class="dropezone-title">• CUSTOM PLAYER •</p>
+
+    <div id="dropzone">
+      <div class="dropezone-img">
+       <img src="img/upload.png" alt="upload" srcset=""> 
+      </div>
+      <div class="dropzone-text">
+        <span class="drag-file">Drag or</span> <a onClick="chooseFile()">Select</a> file
+      </div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Paste the link to the file..">
+      <button id="searchButton">Search</button>
+    </div>
+
+    <div id="searchResults"></div> <!-- Элемент хранения результата поиска -->
+    <div id="currentSong"></div> <!-- Элемент для хранения текущей песни -->
+
+    <p class="playlist-title">PLAYLIST</p>
+    <ul id="playlist"></ul> <!-- Элемент для отображения плейлиста -->
+
+    <div class="playerContainer">
+      <div class="player-card">
+        <img id="cover" src="default_cover.jpg" />
+        
+        <div class="player-info">
+          <span id="artist"></span>
+          <p id="song"></p>
+        </div>
+      </div>
+
+      <div class="player-audio">
+        <audio id="player" controls></audio>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+    <div id="video" class="elfsight-app-85644664-72dd-4ab2-9868-6f534ac683c4" data-elfsight-app-lazy></div>
+
+    <div class="hr"></div>
+    <p class="radio-title">• RADIO PLAYER •</p>
+    <div id="radio" class="elfsight-app-a0e6b87f-692c-4107-af0c-926ebcbf8c9e" data-elfsight-app-lazy></div>
+  </div>
+</body>
+</html>

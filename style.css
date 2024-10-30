@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.body, html {
+  background: #2c2c2c;
+  font-family: 'Roboto', serif;
+  color: #6de483;
+}
+
+.hr {
+  margin: auto;
+  width: 80vw;
+  height: 0.4px;
+  background: #504f4f;
+}
+.hr-playlist {
+  margin: auto;
+  width: 100%;
+  height: 0.2px;
+  background: #8f8d8d8e;
+}
+
+h1 {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+a {
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.wrapper {
+  margin: auto;
+  width: 80vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dropezone-title {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+.playlist-title {
+  margin: 20px 0 0;
+  font-size: 1.8em;
+}
+.eapp-vimeo-gallery-vimeo-gallery-title {
+  margin-top: 16px;
+  font-size: 1.8em;
+}
+.radio-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin: 20px 0 0;
+}
+
+#dropzone {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border: none;
+  border-radius: 8px;
+  background: #504f4f;
+  text-align: center;  
+  font-size: 22px;
+  color: #83E895;
+}
+
+.search-container {
+  width: 100%;
+  max-height: 100px;
+}
+#searchInput {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 20px 0;
+  padding: 25px 20px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #504f4f;
+  color: #83E895;
+  font-size: 20px;
+}
+#searchButton {
+  position: relative;
+  top: -86px;
+  right: -77%;
+  width: 20%;
+  padding: 18px 10px;
+  border: none;
+  border-radius: 8px;
+  background: #83E895;
+  color: #2C2C2C;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+#searchButton:hover {
+  background: #2C2C2C;
+  color: #83E895;
+}
+
+#playlist {
+  height: 250px;
+  overflow-y: scroll;
+}
+ul {
+  box-sizing: border-box;
+  padding: 10px 23px;
+  width: 100%;
+  min-height: 200px;
+  background-color: #504f4f;
+  border-radius: 8px;
+}
+li {
+  margin-top: 8px;
+  margin-bottom: 8px;
+ }
+.playlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+.playlist-buttons {
+  display: inline-block;
+}
+.playlist-button {
+  margin-left: 16px;
+  padding: 14px 28px;
+  background: #83E895;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.playlist-button:hover {
+  background: #2C2C2C;
+  color: #83E895;
+}
+
+.playerContainer {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 20px 0 40px;
+}
+.playerContainer audio {
+  margin-top: 20px;
+  color: #83E895;
+  width: 80vw;
+}
+.player-card {
+  display: flex;
+  flex-direction: space-between;
+  gap: 40px;
+  width: 100%;
+}
+.player-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  flex: 1;
+  border-radius: 8px;
+  background: #504f4f;
+}
+#artist {
+  font-size: 24px;
+}
+#cover {
+  width: 100px;
+  height: 100px;
+  border: none;
+  border-radius: 8px;
+}
+#video {
+  color: #83E895;
+  width: 100%; 
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#searchResults {
+  display: none;
+}
+
+/* Для общих стилей полосы прокрутки */
+::-webkit-scrollbar {
+  width: 8px; /* Ширина вертикальной полосы прокрутки */
+}
+/* Стиль захвата полосы прокрутки */
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 10px;
+  cursor: grab;
+}
+/* Стиль для области, где не захвачено */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Цвет при наведении */
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    width: 90vw;
+   }
+  .hr {
+  width: 90vw;
+  }
+  .playerContainer {
+  width: 90vw;
+  }
+  .playerContainer audio {
+  width: 90vw;
+  }
+  h1 {
+    font-size: 2.2em;
+  } 
+  .dropezone-title, .playlist-title, .radio-title, .eapp-vimeo-gallery-vimeo-gallery-title {
+    font-size: 1.6em;
+  }
+  input {
+    font-size: 1.2em;
+  }
+  .playlist-item {
+    width: 98%;
+    font-size: 1.2em;
+    gap: 0 15px;
+  }
+  .playlist-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  .playlist-button {
+    margin-left: 0;
+    padding: 8px 15px;
+    font-size: 0.8em;
+    width: 100%;
+  }
+  #searchButton {
+    top: -79px;
+    right: -75%;
+    width: 20%;
+    padding: 14px 6px;
+    font-size: 0.8em;
+  }
+  #artist, #song {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 1.8em;
+  }
+  #dropzone {
+    font-size: 1em;
+  }
+  .dropezone-title, .playlist-title, .radio-title, .eapp-vimeo-gallery-vimeo-gallery-title {
+    font-size: 1.2em;
+  }
+  #playlist {
+    padding: 15px;
+  }
+  #playlist li {
+    font-size: 0.9em;
+  }
+  .playlist-item {
+    margin-bottom: 8px;
+  }
+  #searchInput {
+    font-size: 0.9em;
+  }
+  #searchButton {
+    top: -77px;
+    right: -76%;
+    padding: 14px 6px;
+  }
+  .drag-file {
+    display: none;
+  }
+  .player-card {
+    gap: 20px;
+  }
+  .player-info {
+    padding: 10px 25px;
+  }
+  #artist, #song {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wrapper {
+    padding-left: 35px;
+  }
+  .player-card {
+    gap: 10px;
+  }
+  .player-info {
+    padding: 8px 20px;
+  }
+  #artist, #song {
+    font-size: 0.8em;
+  }
+  #cover {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 8px;
+  }
+}
