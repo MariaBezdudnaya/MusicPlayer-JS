@@ -74,7 +74,7 @@ searchButton.addEventListener('click', () => { // Обработчик клик�
  .then(musicData => { // Получаем данные из JSON
     // Обработка данных
     const foundTracks = musicData.filter(track => track.artist.toLowerCase().includes(searchTerm) || 
-    track.title.includes(searchTerm));; // Присваиваем полученные данные переменной music
+    track.title.toLowerCase().includes(searchTerm));; // Присваиваем полученные данные переменной music
     foundTracks.forEach(track => {
       addToPlaylist(track); // Добавляем трек в плейлист
     });
