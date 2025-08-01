@@ -46,6 +46,36 @@
    "artist": "Nyctonian", 
    "title": "Influenceur Nyctonian Industrial Techno", 
    "coverSrc": "img/No_cover.png"
+  },
+  { 
+   "file": "music/Lazzich - Down.mp3", 
+   "artist": "Lazzich", 
+   "title": "Down", 
+   "coverSrc": "img/No_cover.png"
+  },
+  { 
+   "file": "music/Profligate - Dormant.mp3", 
+   "artist": "Profligate", 
+   "title": "Dormant", 
+   "coverSrc": "img/No_cover.png"
+  },
+  { 
+   "file": "music/Profligate - Girl Full of Joy.mp3", 
+   "artist": "Profligate", 
+   "title": "Girl Full of Joy", 
+   "coverSrc": "img/No_cover.png"
+  },
+  { 
+   "file": "music/Soularflair - AUTONOME  (soundtrack, drum'n'bass, dark, epic).mp3", 
+   "artist": "Soularflair", 
+   "title": "AUTONOME  (soundtrack, drum'n'bass, dark, epic)", 
+   "coverSrc": "img/No_cover.png"
+  },
+  { 
+   "file": "music/Soularflair - EPOCHELLIPTIC (drum'n'bass, electronica, sense of journey).mp3", 
+   "artist": "Soularflair", 
+   "title": "EPOCHELLIPTIC (drum'n'bass, electronica, sense of journey)", 
+   "coverSrc": "img/No_cover.png"
   }
  ]
  

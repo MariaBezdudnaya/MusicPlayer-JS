@@ -42,22 +42,14 @@ a {
   flex-direction: column;
 }
 
-.dropezone-title {
+.title {
   font-size: 1.8em;
   font-weight: 700;
+  margin: 20px 0 10px;
 }
 .playlist-title {
   margin: 20px 0 0;
-  font-size: 1.8em;
-}
-.eapp-vimeo-gallery-vimeo-gallery-title {
-  margin-top: 16px;
-  font-size: 1.8em;
-}
-.radio-title {
-  font-size: 1.8em;
-  font-weight: 700;
-  margin: 20px 0 0;
+  font-size: 1.4em;
 }
 
 #dropzone {
@@ -185,11 +177,10 @@ li {
   border: none;
   border-radius: 8px;
 }
-#video {
-  color: #83E895;
-  width: 100%; 
-  max-width: 900px;
-  margin: 0 auto;
+
+.yottie-widget-contents {
+  width: 80vw;
+  max-height: 400px;
 }
 
 #searchResults {

@@ -67,8 +67,7 @@ function addToPlaylist( item) { // Обработчик добавления т�
 searchButton.addEventListener('click', async () => { // Обработчик клика по кнопке поиска
   const searchTerm = searchInput.value.toLowerCase();
   searchInput.value = '';
-
-  const response = await fetch(`http://localhost:80/api/search?q=${encodeURIComponent(searchTerm)}`);
+  const response = await fetch('music.json');
   const musicData = await response.json();
   const foundTracks = musicData.filter(track => track.artist.toLowerCase().includes(searchTerm) || 
   track.title.toLowerCase().includes(searchTerm)); // Присваиваем полученные данные переменной music
