@@ -4,7 +4,6 @@ const artist = document.getElementById('artist');
 const song = document.getElementById('song');
 const playlistContainer = document.getElementById('playlist');
 const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults'); 
 const searchButton = document.getElementById('searchButton');
 
 
@@ -18,7 +17,7 @@ function updateCurrentSong(track) { // Функция для обновлени�
 function addToPlaylist( item) { // Обработчик добавления треков в плейлист
   const li = document.createElement('li');
   li.classList.add('playlist-item');
- 
+
   // Проверяем, является ли item объектом трека или файлом
   if (item.title && item.artist) {
     li.textContent = "• " + `${item.artist} - ${item.title}`; // Для объекта трека
@@ -28,38 +27,45 @@ function addToPlaylist( item) { // Обработчик добавления т�
     console.error('Invalid item type.'); // Обработка ошибки, если item не подходит
     return;
   }
- 
+
   playlistContainer.appendChild(li); // Добавляем элемент списка в плейлист
- 
+
   const hr = document.createElement('div');
   hr.classList.add('hr-playlist');
   playlistContainer.appendChild(hr);
- 
+
   const playlistButtons = document.createElement('div'); // контейнер для кнопок воспроизведения и остановки трека
   playlistButtons.classList.add('playlist-buttons');
   li.appendChild(playlistButtons); // Добавляем кнопки в элемент списка
-  
+
  
   const playButton = document.createElement('button'); // Добавляем обработчик события для воспроизведения трека
   playButton.classList.add('playlist-button');
   playButton.textContent = 'Play';
-  playButton.addEventListener('click', () => {
+  
+  // Исправленный обработчик для воспроизведения
+  playButton.addEventListener('click', async () => {
     if (item.title && item.artist) {
       updateCurrentSong(item); // Для объекта трека
       player.play();
     } else if (item.name) {
-      loadToPlayer(item); // Для объекта файла
-      playTrack();
+      try {
+        const track = await processFile(item);
+        updateCurrentSong(track);
+        player.play();
+      } catch (error) {
+        console.error('Error loading file:', error);
+      }
     }
   });
   playlistButtons.appendChild(playButton); // Добавляем кнопку в элемент списка
- 
+
   const deleteButton = document.createElement('button'); // Добавляем обработчик события для удаления трека
   deleteButton.classList.add('playlist-button');
   deleteButton.textContent = 'Delete';
   deleteButton.addEventListener('click', () => {
-   playlistContainer.removeChild(li);
-   playlistContainer.removeChild(hr);
+    playlistContainer.removeChild(li);
+    playlistContainer.removeChild(hr);
   });
   playlistButtons.appendChild(deleteButton); // Добавляем кнопку в элемент списка
 }
@@ -69,23 +75,26 @@ searchButton.addEventListener('click', async () => { // Обработчик к�
   searchInput.value = '';
   const response = await fetch('music.json');
   const musicData = await response.json();
-  const foundTracks = musicData.filter(track => track.artist.toLowerCase().includes(searchTerm) || 
-  track.title.toLowerCase().includes(searchTerm)); // Присваиваем полученные данные переменной music
+  const foundTracks = musicData.filter(track => 
+    track.artist.toLowerCase().includes(searchTerm) || 
+    track.title.toLowerCase().includes(searchTerm)
+  );
+  
   foundTracks.forEach(track => {
     addToPlaylist(track); // Добавляем трек в плейлист
   });
-
 });
 
 
 function chooseFile() { // Функция выбора файла, не перетаскивая в dropzone
   const input = document.createElement('input');
   input.type = 'file';
+  input.accept = 'audio/*';
 
   input.onchange = function (e) {
-    const file = e.target.files[0]; // Извлекаем выбранный файл
-    addToPlaylist(file); // Добавляем трек в плейлист
-  }
+    const file = e.target.files[0];
+    addToPlaylist(file);
+  };
   input.click();
 }
 
@@ -101,45 +110,68 @@ function initDropzone() { // Функция инициализации dropzone 
   dropzone.addEventListener('drop', (e) => { // Событие при перетаскивании файла в dropzone
     e.preventDefault();
     e.stopPropagation();
+    dropzone.style.backgroundColor = '';
 
-    const file = e.dataTransfer.files[0]; // dataTransfer отвечает за то, какие данные хранятся в элементе, который перетаскивается
-    addToPlaylist(file); // Добавляем трек в плейлист
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('audio/')) {
+      addToPlaylist(file);
+    }
   });
 }
 
-
-function setSongInfo(fileContent) { // Функция получения данных из выбранного файла
-  const mp3Tags = new MP3Tag(fileContent); // Инициализируем библиотеку для парсинга мета-тегов из аудиофайлов
-  mp3Tags.read();
-
-  const { v1: {title, artist}, v2: {APIC} } = mp3Tags.tags; // Деструктуризация объекта, чтобы получить нужные значения (название + автор, обложка)
-  const coverBytes = APIC[0].data;
-  const coverUrl = "data:image/png;base64," + btoa(String.fromCharCode.apply(null, new Uint8Array(coverBytes))); // btoa преобразует байты в строку
-
-  const art = document.getElementById('artist');
-  song.textContent = title; // Заполняем поля информации о треке
-  art.textContent = artist; 
-  cover.src = coverUrl;
+// Новая функция для обработки файлов
+async function processFile(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target.result;
+      const track = parseMetadata(content, file.name);
+      resolve(track);
+    };
+    reader.readAsArrayBuffer(file);
+  });
 }
 
+function parseMetadata(fileContent, fileName) {
+  try {
+    const mp3Tags = new MP3Tag(fileContent);
+    mp3Tags.read();
+    
+    const tags = mp3Tags.tags;
+    const track = {
+      file: URL.createObjectURL(new Blob([fileContent])),
+      title: fileName.replace(/\.[^.]+$/, ""),
+      artist: "Unknown Artist",
+      coverSrc: "default_cover.jpg"
+    };
 
-function playTrack() { // Функция воспроизведения трека
-  player.play();
-}
+    // Извлекаем метаданные
+    if (tags.v1) {
+      track.title = tags.v1.title || track.title;
+      track.artist = tags.v1.artist || track.artist;
+    }
+    if (tags.v2) {
+      track.title = tags.v2.title || track.title;
+      track.artist = tags.v2.artist || track.artist;
+      
+      if (tags.v2.APIC && tags.v2.APIC.length > 0) {
+        const coverBytes = tags.v2.APIC[0].data;
+        track.coverSrc = "data:image/png;base64," + 
+          btoa(String.fromCharCode.apply(null, new Uint8Array(coverBytes)));
+      }
+    }
 
-
-function loadToPlayer(file) { // Функция загрузки выбранного файла в плеер
-  const reader = new FileReader(); // Создаем объект для чтения файла
-  reader.onload = (e) => { // И на конец чтения
-    const content = e.target.result; // контент файла сохраняем в объект target в свойстве result, где и массив байт
-    setSongInfo(content); // и передаём в функцию setSongInfo
+    return track;
+  } catch (error) {
+    console.error('Error reading tags:', error);
+    return {
+      file: URL.createObjectURL(new Blob([fileContent])),
+      title: fileName.replace(/\.[^.]+$/, ""),
+      artist: "Unknown Artist",
+      coverSrc: "default_cover.jpg"
+    };
   }
-  reader.readAsArrayBuffer(file) // reader должен прочитать наш файл как array-buffer
-
-  player.src = URL.createObjectURL(file); // Загружаем ссылку на файл в плеер, делаем из массива байт URL и передаем в src
-  player.load(); // Начинаем процессить этот файл и грузить контент
 }
-
 
 window.onload = () => { // Функция запуска при загрузке страницы
   initDropzone(); // Инициализируем dropzone
